@@ -1,2 +1,4 @@
 .idea
 gateway/configs/config.yaml
+accounting/configs/config.yaml
+transaction/configs/config.yaml

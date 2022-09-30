@@ -2,32 +2,27 @@ package service
 
 import (
 	"context"
-	"github.com/nurtilekassankhan/meetup/gateway/pkg/config"
 	"github.com/nurtilekassankhan/meetup/gateway/pkg/model"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"github.com/nurtilekassankhan/meetup/gateway/pkg/repository"
 )
 
-type Conn interface {
-	RequestWithdraw(ctx context.Context, data *model.WithdrawRequest) error
-	ConfirmWithdraw(ctx context.Context, data *model.WithdrawConfirm) error
+type Service interface {
+	RequestWithdraw(ctx context.Context, data *model.WithdrawRequest) error // gateway -> service
+	ConfirmWithdraw(ctx context.Context, data *model.WithdrawConfirm) error // gateway -> service -> service
 }
 
-type conn struct {
-	conn pb.UserManagementClient
+type service struct {
+	repo repository.Repository
 }
 
-func New(data *config.AccountingServer) (Conn, error) {
-	var opts []grpc.DialOption
-	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	grpcConn, err := grpc.Dial(data.Host+data.Port, opts...)
-	if err != nil {
-		return nil, err
-	}
+func New(repo repository.Repository) Service {
+	return &service{repo: repo}
+}
 
-	client := pb.NewUserManagementClient(grpcConn)
+func (s *service) RequestWithdraw(ctx context.Context, data *model.WithdrawRequest) error {
+	return s.repo.Accounting.RequestWithdraw(ctx, data)
+}
 
-	return &conn{
-		conn: client,
-	}, nil
+func (s *service) ConfirmWithdraw(ctx context.Context, data *model.WithdrawConfirm) error {
+	return s.repo.Accounting.ConfirmWithdraw(ctx, data)
 }
