@@ -20,7 +20,7 @@ const createWithdrawRequestsTableSQL = `
 
 type WithdrawRequest interface {
 	Create(data *model.WithdrawRequestDatabase) (int, error)
-	GetByOtpCode(otp string) (*model.WithdrawRequestDatabase, error)
+	GetByOtpCode(otp string) (model.WithdrawRequestDatabase, error)
 }
 
 type WithdrawRequestSQLite struct {
@@ -41,11 +41,11 @@ func (r *WithdrawRequestSQLite) Create(data *model.WithdrawRequestDatabase) (int
 	return int(id), nil
 }
 
-func (r *WithdrawRequestSQLite) GetByOtpCode(otp string) (*model.WithdrawRequestDatabase, error) {
-	var data *model.WithdrawRequestDatabase
+func (r *WithdrawRequestSQLite) GetByOtpCode(otp string) (model.WithdrawRequestDatabase, error) {
+	var data model.WithdrawRequestDatabase
 	query := fmt.Sprintf("select * FROM %s WHERE otp = $1", withdrawRequestsTable)
 	if err := r.db.Get(&data, query, otp); err != nil {
-		return nil, err
+		return data, err
 	}
 	return data, nil
 }

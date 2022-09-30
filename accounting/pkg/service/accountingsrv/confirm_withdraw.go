@@ -2,7 +2,6 @@ package accountingsrv
 
 import (
 	"context"
-	"errors"
 	"github.com/nurtilekassankhan/meetup/accounting/pkg/common"
 	"github.com/nurtilekassankhan/meetup/accounting/pkg/model"
 )
@@ -24,7 +23,10 @@ func (s *service) ConfirmWithdraw(ctx context.Context, otp string) error {
 			return err
 		}
 
+	} else {
+		return accounting_errors
 	}
 
-	return errors.New("invalid otp code")
+	return nil
+
 }

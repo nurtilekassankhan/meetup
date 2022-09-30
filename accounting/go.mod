@@ -5,9 +5,10 @@ go 1.18
 require (
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/mattn/go-sqlite3 v1.14.15
+	github.com/nurtilekassankhan/meetup/libs v0.0.0-20220930073448-88198a7aa1fb
 	github.com/pquerna/otp v1.3.0
 	github.com/spf13/viper v1.13.0
-	google.golang.org/grpc v1.46.2
+	google.golang.org/grpc v1.49.0
 	google.golang.org/protobuf v1.28.0
 )
 
