@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package transactionmgmt;
+
+option go_package = "github.com/nurtilekassankhan/meetup/transaction";
+
+service UserManagement {
+  rpc RecordWithdraw(RecordWithdrawRequest) returns (RecordWithdrawResponse);
+}
+
+message RecordWithdrawRequest {
+  string Currency = 1;
+  string Chain = 2;
+  string Amount = 3;
+  string Address = 4;
+  string ExecutedAt = 5;
+}
+
+message RecordWithdrawResponse {}
+

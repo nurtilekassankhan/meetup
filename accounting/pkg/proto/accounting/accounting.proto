@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package accountingmgmt;
+
+option go_package = "github.com/nurtilekassankhan/meetup/accounting";
+
+service UserManagement {
+  rpc RequestWithdraw(RequestWithdrawRequest) returns (RequestWithdrawResponse);
+  rpc ConfirmWithdraw(ConfirmWithdrawRequest) returns (ConfirmWithdrawResponse);
+}
+
+message RequestWithdrawRequest {
+  string Currency = 1;
+  string Chain = 2;
+  string Amount = 3;
+  string Address = 4;
+}
+
+message RequestWithdrawResponse {}
+
+message ConfirmWithdrawRequest {
+  string Code = 1;
+}
+
+message ConfirmWithdrawResponse {}

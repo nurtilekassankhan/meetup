@@ -1,0 +1,8 @@
+server:
+  port: ":8081"
+accounting_server:
+  host: "localhost"
+  port: ":8083"
+transaction_server:
+  host: "localhost"
+  port: ":8084"
